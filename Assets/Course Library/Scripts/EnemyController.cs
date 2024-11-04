@@ -24,5 +24,10 @@ public class EnemyController : MonoBehaviour
                 * speed
                 * Time.deltaTime
         );
+
+        if (_rigidbody.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }

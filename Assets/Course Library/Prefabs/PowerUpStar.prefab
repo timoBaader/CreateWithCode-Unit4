@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1143544818627270199}
   - component: {fileID: 6087486572415447708}
   - component: {fileID: 1806999113014675685}
+  - component: {fileID: -2244117374226850709}
   m_Layer: 0
   m_Name: PowerUpStar
   m_TagString: PowerUp
@@ -105,3 +106,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5122995, y: 0.48738986, z: 0.109224334}
   m_Center: {x: 0, y: 0.000000007450581, z: 0.0000000018626451}
+--- !u!114 &-2244117374226850709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3131109056526935726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b87ed854a1ecb9545ad4b21b8e22e948, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 200

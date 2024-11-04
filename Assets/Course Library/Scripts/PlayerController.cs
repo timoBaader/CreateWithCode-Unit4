@@ -8,9 +8,9 @@ public class PlayerController : MonoBehaviour
     private GameObject _focalPoint;
 
     public GameObject PowerUpIndicator;
-    public bool HasPowerUp = false;
-    public float PowerupStrength = 10f;
-    public float Speed = 500.0f;
+    public bool hasPowerUp = false;
+    public float powerupStrength = 10f;
+    public float speed = 500.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +23,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float verticalInput = Input.GetAxis("Vertical");
-        _rigidbody.AddForce(_focalPoint.transform.forward * verticalInput * Speed * Time.deltaTime);
-        PowerUpIndicator.SetActive(HasPowerUp);
+        _rigidbody.AddForce(_focalPoint.transform.forward * verticalInput * speed * Time.deltaTime);
+        PowerUpIndicator.SetActive(hasPowerUp);
         Vector3 PowerUpIndicatorPosition = new Vector3(
             _rigidbody.position.x,
             -0.5f,
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.CompareTag("PowerUp"))
         {
-            HasPowerUp = true;
+            hasPowerUp = true;
             Destroy(other.gameObject);
             StartCoroutine(PowerUpCountdownRoutine());
         }
@@ -46,17 +46,17 @@ public class PlayerController : MonoBehaviour
     IEnumerator PowerUpCountdownRoutine()
     {
         yield return new WaitForSeconds(7);
-        HasPowerUp = false;
+        hasPowerUp = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy") && HasPowerUp)
+        if (collision.gameObject.CompareTag("Enemy") && hasPowerUp)
         {
             Rigidbody enemyrigidbody = collision.gameObject.GetComponent<Rigidbody>();
             Vector3 awayfromplayer = enemyrigidbody.position - _rigidbody.position;
 
-            enemyrigidbody.AddForce(awayfromplayer * PowerupStrength, ForceMode.Impulse);
+            enemyrigidbody.AddForce(awayfromplayer * powerupStrength, ForceMode.Impulse);
             Debug.Log("collided with enemy while powerup enabled");
         }
     }

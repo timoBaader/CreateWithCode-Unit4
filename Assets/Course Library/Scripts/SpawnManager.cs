@@ -6,28 +6,40 @@ public class SpawnManager : MonoBehaviour
 {
     public GameObject enemy;
     public GameObject player;
+    public GameObject powerUp;
+    public int enemyCount;
+    public int enemyWave = 1;
 
     // Start is called before the first frame update
-    void Start()
-    {
-        SpawnEnemy();
-    }
+    void Start() { }
 
     // Update is called once per frame
-    void Update() { }
-
-    private void SpawnEnemy()
+    void Update()
     {
-        Vector3 spawnPosition = new Vector3(Random.Range(-8, 8), 3, Random.Range(-8, 8));
-
-        // To make sure the enemy doesnt spawn at or too near the players position
-        if ((player.transform.position - enemy.transform.position).magnitude > 2)
+        enemyCount = FindObjectsOfType<EnemyController>().Length;
+        if (enemyCount == 0)
         {
-            Instantiate(enemy, spawnPosition, enemy.transform.rotation);
+            SpawnObject(enemy, enemyWave);
+            enemyWave++;
+            SpawnObject(powerUp, 1);
         }
-        else
+    }
+
+    private void SpawnObject<T>(T prefab, int Amount)
+        where T : Object
+    {
+        int CreatedInstances = 0;
+
+        while (CreatedInstances < Amount)
         {
-            SpawnEnemy();
+            Vector3 SpawnPosition = new Vector3(Random.Range(-8, 8), 0.5f, Random.Range(-8, 8));
+
+            // To make sure the enemy doesnt spawn at or too near the players position
+            if ((player.transform.position - enemy.transform.position).magnitude > 2)
+            {
+                Instantiate(prefab, SpawnPosition, enemy.transform.rotation);
+                CreatedInstances++;
+            }
         }
     }
 }
