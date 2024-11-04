@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
     private GameObject _focalPoint;
 
+    public GameObject PowerUpIndicator;
     public bool HasPowerUp = false;
     public float PowerupStrength = 10f;
     public float Speed = 500.0f;
@@ -22,8 +23,14 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float verticalInput = Input.GetAxis("Vertical");
-        Debug.Log(_focalPoint.transform.forward);
         _rigidbody.AddForce(_focalPoint.transform.forward * verticalInput * Speed * Time.deltaTime);
+        PowerUpIndicator.SetActive(HasPowerUp);
+        Vector3 PowerUpIndicatorPosition = new Vector3(
+            _rigidbody.position.x,
+            -0.5f,
+            _rigidbody.position.z
+        );
+        PowerUpIndicator.transform.position = PowerUpIndicatorPosition;
     }
 
     private void OnTriggerEnter(Collider other)
